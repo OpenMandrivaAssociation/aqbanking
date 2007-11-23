@@ -228,6 +228,8 @@ Necessary for viewing DTAUS (German financial format) accounts.
 %setup -q -n %fname
 
 %build
+#gw don't know where this is supposed to come from:
+export target_cpu=%_arch
 %configure2_5x
 
 #parallel compilation must be disabled
