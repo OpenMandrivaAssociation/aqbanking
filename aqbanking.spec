@@ -34,7 +34,6 @@ Source: http://prdownloads.sourceforge.net/aqbanking/%fname.tar.gz
 Group: System/Libraries
 License: GPL
 URL: http://sourceforge.net/projects/aqbanking
-BuildRoot: %{_tmppath}/%{name}-%{version}-root
 BuildRequires: libgwenhywfar-devel >= 2.3.0
 BuildRequires: libchipcard3-devel
 BuildRequires: libofx-devel >= 0.8.0
