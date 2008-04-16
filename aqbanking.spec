@@ -26,6 +26,7 @@ BuildRequires: libgwenhywfar-devel >= 3.0.0
 BuildRequires: libchipcard-devel
 BuildRequires: libofx-devel >= 0.8.2
 BuildRequires: libktoblzcheck-devel
+BuildRequires: libqt3-devel
 
 %description 
 The intention of AqBanking is to provide a middle layer between the
