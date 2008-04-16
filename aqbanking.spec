@@ -1,30 +1,17 @@
 %define name aqbanking
-%define version 2.3.3
+%define version 3.3.0
 %define release %mkrel 1
-%define major 16
+%define major 20
 %define libname %mklibname %name %major
 %define develname %mklibname -d %name
 %define fname %name-%{version}
-%define gwenmajor 38
-%define aqhbcimajor 10
+%define gwenmajor 47
+%define aqhbcimajor 13
 %define aqhbcilibname %mklibname aqhbci %aqhbcimajor
-%define qtmajor 4
+%define qtmajor 5
 %define qtlibname %mklibname qbanking %qtmajor
-%define gtkmajor 2
-%define gtklibname %mklibname g2banking %gtkmajor
-%define develnamegtk %mklibname -d g2banking
-%define kdemajor 1
-%define kdelibname %mklibname kbanking %kdemajor
-%define develnamekde %mklibname -d kbanking
-%define gkmajor 4
-%define gklibname %mklibname geldkarte %gkmajor
-%define develnamegk %mklibname -d geldkarte
-%define ofxmajor 3
+%define ofxmajor 4
 %define ofxlibname %mklibname aqofxconnect %ofxmajor
-%define nonemajor 0
-%define nonelibname %mklibname aqnone %nonemajor
-%define dtausmajor 3
-%define dtauslibname %mklibname aqdtaus %dtausmajor
 
 Name: %{name}
 Summary: A library for online banking functions and financial data import/export
@@ -35,14 +22,10 @@ Group: System/Libraries
 License: GPL
 URL: http://sourceforge.net/projects/aqbanking
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
-BuildRequires: libgwenhywfar-devel >= 2.3.0
-BuildRequires: libchipcard3-devel
-BuildRequires: libofx-devel >= 0.8.0
+BuildRequires: libgwenhywfar-devel >= 3.0.0
+BuildRequires: libchipcard-devel
+BuildRequires: libofx-devel >= 0.8.2
 BuildRequires: libktoblzcheck-devel
-BuildRequires: gtk+2-devel
-BuildRequires: libglade2.0-devel
-BuildRequires: kdelibs-devel
-
 
 %description 
 The intention of AqBanking is to provide a middle layer between the
@@ -80,42 +63,6 @@ Group: System/Libraries
 Library for the Aqbanking OFX access.
 
 
-%package -n %gtklibname
-Summary: Aqbanking tools for Gnome2/Gtk2
-Group: System/Libraries
-
-%description -n %gtklibname
-Necessary for gtk2-based banking applications, e.g. Grisbi (but
-not gnucash).
-
-%package -n %develnamegtk
-Summary: Aqbanking tools for Gnome2/Gtk2
-Group: Development/C
-Requires: %gtklibname = %version
-Provides: libg2banking-devel = %version-%release
-Obsoletes: %mklibname -d g2banking 2
-
-%description -n %develnamegtk
-Necessary for gtk2-based banking applications, e.g. Grisbi (but
-not gnucash).
-
-%package -n %gklibname
-Summary: Aqbanking tools for Geldkarte
-Group: System/Libraries
-
-%description -n %gklibname
-Necessary for accessing the German Geldkarte system.
-
-%package -n %develnamegk
-Summary: Aqbanking tools for Gnome2/Gtk2
-Group: Development/C
-Requires: %gklibname = %version
-Provides: libgeldkarte-devel = %version-%release
-Obsoletes: %mklibname -d geldkarte 4
-
-%description -n %develnamegk
-Necessary for accessing the German Geldkarte system.
-
 %package geldkarte
 Summary: Aqbanking tools for Geldkarte
 Group: System/Libraries
@@ -135,22 +82,6 @@ Group: System/Libraries
 %description ofx
 Necessary for OFX direct connect access.
 
-%package -n %kdelibname
-Summary: Aqbanking tools for KDE3
-Group: System/Libraries
-
-%description -n %kdelibname
-Necessary for KDE-based banking applications, e.g. KMyMoney.
-
-%package -n %develnamekde
-Summary: Aqbanking tools for KDE3
-Group: Development/C++
-Requires: %kdelibname = %version
-Provides: libkbanking-devel = %version-%release
-Obsoletes: %mklibname -d kbanking 1
-
-%description -n %develnamekde
-Necessary for KDE-based banking applications, e.g. KMyMoney.
 
 %package -n aqhbci
 Summary: The HBCI backend for the Aqbanking library
@@ -209,20 +140,6 @@ This package contains aqbanking-config and header files for writing and
 compiling programs using Aqbanking.
 
 
-%package -n %nonelibname
-Summary: Aqbanking dummy backend library
-Group: System/Libraries
-
-%description -n %nonelibname
-Necessary for viewing offline accounts.
-
-
-%package -n %dtauslibname
-Summary: Aqbanking DTAUS backend library
-Group: System/Libraries
-
-%description -n %dtauslibname
-Necessary for viewing DTAUS (German financial format) accounts.
 
 %prep
 %setup -q -n %fname
@@ -231,7 +148,6 @@ Necessary for viewing DTAUS (German financial format) accounts.
 #gw don't know where this is supposed to come from:
 export target_cpu=%_arch
 %configure2_5x
-
 #parallel compilation must be disabled
 #otherwise build will be linked with system libraries
 #not the package one
@@ -260,26 +176,15 @@ mv %buildroot%_datadir/doc/aqhbci/* installed-docs
 %postun -n %aqhbcilibname -p /sbin/ldconfig
 %post -n %qtlibname -p /sbin/ldconfig
 %postun -n %qtlibname -p /sbin/ldconfig
-%post -n %gtklibname -p /sbin/ldconfig
-%postun -n %gtklibname -p /sbin/ldconfig
-%post -n %kdelibname -p /sbin/ldconfig
-%postun -n %kdelibname -p /sbin/ldconfig
-%post -n %gklibname -p /sbin/ldconfig
-%postun -n %gklibname -p /sbin/ldconfig
 %post -n %ofxlibname -p /sbin/ldconfig
 %postun -n %ofxlibname -p /sbin/ldconfig
-%post -n %nonelibname -p /sbin/ldconfig
-%postun -n %nonelibname -p /sbin/ldconfig
-%post -n %dtauslibname -p /sbin/ldconfig
-%postun -n %dtauslibname -p /sbin/ldconfig
 
 
 %files -n aqhbci
 %defattr(-,root,root)
 %doc src/plugins/backends/aqhbci/tools/aqhbci-tool/README
-%_bindir/aqhbci-tool
-%{_bindir}/hbcixml2
-%_datadir/aqhbci/
+%_bindir/aqhbci-tool3
+%{_bindir}/hbcixml3
 %_libdir/%name/plugins/%major/providers/aqhbci*
 
 %files -n %aqhbcilibname
@@ -295,13 +200,12 @@ mv %buildroot%_datadir/doc/aqhbci/* installed-docs
 %_libdir/%name/plugins/%major/wizards/qt3-wizard
 %_libdir/%name/plugins/%major/wizards/qt3_wizard.xml
 %_libdir/%name/plugins/%major/debugger/aqhbci/
-%_bindir/qb-help
+%_bindir/qb-help5
 %_libdir/%name/plugins/%major/frontends/qbanking/
 
 %files -f %name.lang
 %defattr(-,root,root)
 %doc installed-docs
-%_bindir/%name-tool
 %dir %{_libdir}/%{name}
 %dir %{_libdir}/%{name}/plugins
 %dir %{_libdir}/%{name}/plugins/%major/
@@ -310,15 +214,12 @@ mv %buildroot%_datadir/doc/aqhbci/* installed-docs
 %dir %{_libdir}/%{name}/plugins/%major/imexporters/
 %{_libdir}/%{name}/plugins/%major/bankinfo/
 %{_libdir}/%{name}/plugins/%major/imexporters/csv*
-%{_libdir}/%{name}/plugins/%major/imexporters/dbio*
 %{_libdir}/%{name}/plugins/%major/imexporters/dtaus*
 %{_libdir}/%{name}/plugins/%major/imexporters/eri*
 %{_libdir}/%{name}/plugins/%major/imexporters/openhbci*
-%{_libdir}/%{name}/plugins/%major/imexporters/qif*
 %{_libdir}/%{name}/plugins/%major/imexporters/swift*
 %{_libdir}/%{name}/plugins/%major/imexporters/xmldb*
 %{_libdir}/%{name}/plugins/%major/imexporters/yellownet*
-%{_libdir}/%{name}/plugins/%major/providers/aqdtaus*
 %{_libdir}/%{name}/plugins/%major/providers/aqnone*
 %{_libdir}/gwenhywfar/plugins/%gwenmajor/dbio/dtaus.so
 %{_libdir}/gwenhywfar/plugins/%gwenmajor/dbio/dtaus.so.0
@@ -328,7 +229,6 @@ mv %buildroot%_datadir/doc/aqhbci/* installed-docs
 %{_libdir}/gwenhywfar/plugins/%gwenmajor/dbio/swift.so.0
 %{_libdir}/gwenhywfar/plugins/%gwenmajor/dbio/swift.so.0.0.0
 %{_libdir}/gwenhywfar/plugins/%gwenmajor/dbio/swift.xml
-%{_libdir}/gwenhywfar/plugins/%gwenmajor/crypttoken/*
 
 %{_datadir}/%{name}
 
@@ -337,98 +237,36 @@ mv %buildroot%_datadir/doc/aqhbci/* installed-docs
 %dir %{_libdir}/%{name}/plugins/%major/imexporters/ofx*
 %{_libdir}/%{name}/plugins/%major/providers/aqofxconnect*
 
-%files geldkarte
-%defattr(-,root,root)
-%{_libdir}/%{name}/plugins/%major/providers/aqgeldkarte*
+#%files geldkarte
+#%defattr(-,root,root)
+#%{_libdir}/%{name}/plugins/%major/providers/aqgeldkarte*
 
-%files -n %gtklibname
-%defattr(-,root,root)
-%_libdir/libg2banking.so.%{gtkmajor}*
-
-%files -n %develnamegtk
-%defattr(-,root,root)
-%_libdir/libg2banking.so
-%_libdir/libg2banking.la
-%{_bindir}/g2banking-config
-%{_includedir}/g2banking
-%{_datadir}/aclocal/g2banking.m4
-
-%files -n %kdelibname
-%defattr(-,root,root)
-%_libdir/libkbanking.so.%{kdemajor}*
-
-%files -n %develnamekde
-%defattr(-,root,root)
-%_libdir/libkbanking.so
-%_libdir/libkbanking.la
-%{_bindir}/kbanking-config
-%{_includedir}/kbanking
-%{_datadir}/aclocal/kbanking.m4
-
-%files -n %gklibname
-%defattr(-,root,root)
-%_libdir/libaqgeldkarte.so.%{gkmajor}*
-
-%files -n %develnamegk
-%defattr(-,root,root)
-%{_bindir}/aqgeldkarte-config
-%{_includedir}/aqgeldkarte/
-%{_libdir}/libaqgeldkarte.la
-%{_libdir}/libaqgeldkarte.so
-%{_datadir}/aclocal/aqgeldkarte.m4
 
 %files -n %ofxlibname
 %defattr(-,root,root)
 %_libdir/libaqofxconnect.so.%{ofxmajor}*
 
-
 %files -n %libname
 %defattr(-,root,root)
 %{_libdir}/libaqbanking.so.%{major}*
-%_libdir/libcbanking.so.%{major}*
+%_libdir/libaqnone.so.%{major}*
 
 %files -n %develname
 %defattr(-,root,root)
 %{_bindir}/aqbanking-config
-%{_bindir}/aqdtaus-config
-%{_bindir}/aqhbci-config
-%{_bindir}/aqofxconnect-config
-%{_bindir}/cbanking-config
-%{_bindir}/qbanking-config
 %{_includedir}/aqbanking
-%{_includedir}/aqdtaus
 %{_includedir}/aqhbci/
-%{_includedir}/aqofxconnect/
-%{_includedir}/cbanking/
 %{_includedir}/qbanking
-%{_libdir}/libaqdtaus.la
-%{_libdir}/libcbanking.la
+%{_includedir}/aqofxconnect/
 %{_libdir}/libaqbanking.la
 %{_libdir}/libaqnone.la
-%{_libdir}/libaqdtaus.so
-%{_libdir}/libcbanking.so
 %{_libdir}/libaqbanking.so
 %{_libdir}/libaqnone.so
-%{_libdir}/libqbanking.la
-%{_libdir}/libqbanking.so
 %{_libdir}/libaqhbci.la
 %_libdir/libaqhbci.so
+%{_libdir}/libqbanking.la
+%{_libdir}/libqbanking.so
 %_libdir/libaqofxconnect.so
 %_libdir/libaqofxconnect.la
-%{_libdir}/pkgconfig/aqbanking.pc
 %{_datadir}/aclocal/aqbanking.m4
-%{_datadir}/aclocal/aqdtaus.m4
-%_datadir/aclocal/aqhbci.m4
-%{_datadir}/aclocal/aqofxconnect.m4
-%{_datadir}/aclocal/cbanking.m4
-%{_datadir}/aclocal/qbanking.m4
-
-%files -n %nonelibname
-%defattr(-,root,root)
-%_libdir/libaqnone.so.%{nonemajor}*
-
-%files -n %dtauslibname
-%defattr(-,root,root)
-%_libdir/libaqdtaus.so.%{dtausmajor}*
-
-
+%_libdir/pkgconfig/aqbanking.pc
