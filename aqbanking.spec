@@ -27,6 +27,7 @@ BuildRequires: libchipcard-devel
 BuildRequires: libofx-devel >= 0.8.2
 BuildRequires: libktoblzcheck-devel
 BuildRequires: qt3-devel
+BuildRequires: gmp-devel
 
 %description 
 The intention of AqBanking is to provide a middle layer between the
