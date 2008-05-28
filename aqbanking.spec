@@ -17,10 +17,10 @@ Name: %{name}
 Summary: A library for online banking functions and financial data import/export
 Version: %{version}
 Release: %{release}
-Source: http://prdownloads.sourceforge.net/aqbanking/%fname.tar.gz
+Source: http://www.aquamaniac.de/sites/download/%fname.tar.gz
 Group: System/Libraries
 License: GPL
-URL: http://sourceforge.net/projects/aqbanking
+URL: http://www.aquamaniac.de/sites/aqbanking/index.php
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 BuildRequires: libgwenhywfar-devel >= 3.0.0
 BuildRequires: libchipcard-devel
