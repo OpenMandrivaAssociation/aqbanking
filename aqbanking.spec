@@ -1,5 +1,5 @@
 %define name aqbanking
-%define version 3.4.2
+%define version 3.5.0
 %define release %mkrel 1
 %define major 20
 %define libname %mklibname %name %major
