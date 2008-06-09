@@ -172,14 +172,30 @@ mv %buildroot%_datadir/doc/aqhbci/* installed-docs
 %clean
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
 
+%if %mdkversion < 200900
 %post -n %libname -p /sbin/ldconfig
+%endif
+%if %mdkversion < 200900
 %postun -n %libname -p /sbin/ldconfig
+%endif
+%if %mdkversion < 200900
 %post -n %aqhbcilibname -p /sbin/ldconfig
+%endif
+%if %mdkversion < 200900
 %postun -n %aqhbcilibname -p /sbin/ldconfig
+%endif
+%if %mdkversion < 200900
 %post -n %qtlibname -p /sbin/ldconfig
+%endif
+%if %mdkversion < 200900
 %postun -n %qtlibname -p /sbin/ldconfig
+%endif
+%if %mdkversion < 200900
 %post -n %ofxlibname -p /sbin/ldconfig
+%endif
+%if %mdkversion < 200900
 %postun -n %ofxlibname -p /sbin/ldconfig
+%endif
 
 
 %files -n aqhbci
