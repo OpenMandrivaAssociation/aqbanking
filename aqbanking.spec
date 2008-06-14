@@ -64,7 +64,7 @@ Group: System/Libraries
 %description -n %{ofxlibname}
 Library for the Aqbanking OFX access.
 
-
+%if 0
 %package geldkarte
 Summary: Aqbanking tools for Geldkarte
 Group: System/Libraries
@@ -77,6 +77,7 @@ Group: System/Libraries
 Requires: %name-geldkarte = %version
 %description geldkarte-qt3
 Necessary for accessing the German Geldkarte system.
+%endif
 
 %package ofx
 Summary: Aqbanking tools for OFX
