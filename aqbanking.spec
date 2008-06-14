@@ -1,5 +1,5 @@
 %define name aqbanking
-%define version 3.5.0
+%define version 3.5.1
 %define release %mkrel 1
 %define major 20
 %define libname %mklibname %name %major
@@ -19,7 +19,7 @@ Version: %{version}
 Release: %{release}
 Source: http://www.aquamaniac.de/sites/download/%fname.tar.gz
 Group: System/Libraries
-License: GPL
+License: GPLv2+
 URL: http://www.aquamaniac.de/sites/aqbanking/index.php
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 BuildRequires: libgwenhywfar-devel >= 3.0.0
