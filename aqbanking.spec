@@ -1,5 +1,5 @@
 %define name aqbanking
-%define version 3.5.1
+%define version 3.6.0
 %define release %mkrel 1
 %define major 20
 %define libname %mklibname %name %major
@@ -236,6 +236,7 @@ mv %buildroot%_datadir/doc/aqhbci/* installed-docs
 %{_libdir}/%{name}/plugins/%major/imexporters/dtaus*
 %{_libdir}/%{name}/plugins/%major/imexporters/eri*
 %{_libdir}/%{name}/plugins/%major/imexporters/openhbci*
+%{_libdir}/%{name}/plugins/%major/imexporters/sepa*
 %{_libdir}/%{name}/plugins/%major/imexporters/swift*
 %{_libdir}/%{name}/plugins/%major/imexporters/xmldb*
 %{_libdir}/%{name}/plugins/%major/imexporters/yellownet*
