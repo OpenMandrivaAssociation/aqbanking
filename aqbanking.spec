@@ -1,5 +1,5 @@
 %define name aqbanking
-%define version 3.6.2
+%define version 3.7.1
 %define release %mkrel 1
 %define major 20
 %define libname %mklibname %name %major
@@ -22,7 +22,7 @@ Group: System/Libraries
 License: GPLv2+
 URL: http://www.aquamaniac.de/sites/aqbanking/index.php
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
-BuildRequires: libgwenhywfar-devel >= 3.0.0
+BuildRequires: libgwenhywfar-devel >= 3.4.0.0
 BuildRequires: libchipcard-devel
 BuildRequires: libofx-devel >= 0.8.2
 BuildRequires: libktoblzcheck-devel
@@ -242,12 +242,8 @@ mv %buildroot%_datadir/doc/aqhbci/* installed-docs
 %{_libdir}/%{name}/plugins/%major/imexporters/yellownet*
 %{_libdir}/%{name}/plugins/%major/providers/aqnone*
 %{_libdir}/gwenhywfar/plugins/%gwenmajor/dbio/dtaus.so
-%{_libdir}/gwenhywfar/plugins/%gwenmajor/dbio/dtaus.so.0
-%{_libdir}/gwenhywfar/plugins/%gwenmajor/dbio/dtaus.so.0.0.0
 %{_libdir}/gwenhywfar/plugins/%gwenmajor/dbio/dtaus.xml
 %{_libdir}/gwenhywfar/plugins/%gwenmajor/dbio/swift.so
-%{_libdir}/gwenhywfar/plugins/%gwenmajor/dbio/swift.so.0
-%{_libdir}/gwenhywfar/plugins/%gwenmajor/dbio/swift.so.0.0.0
 %{_libdir}/gwenhywfar/plugins/%gwenmajor/dbio/swift.xml
 
 %{_datadir}/%{name}
