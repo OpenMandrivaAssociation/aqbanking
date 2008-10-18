@@ -1,5 +1,5 @@
 %define name aqbanking
-%define version 3.7.2
+%define version 3.8.0
 %define release %mkrel 1
 %define major 20
 %define libname %mklibname %name %major
@@ -8,7 +8,7 @@
 %define gwenmajor 47
 %define aqhbcimajor 13
 %define aqhbcilibname %mklibname aqhbci %aqhbcimajor
-%define qtmajor 5
+%define qtmajor 6
 %define qtlibname %mklibname qbanking %qtmajor
 %define ofxmajor 4
 %define ofxlibname %mklibname aqofxconnect %ofxmajor
@@ -17,7 +17,8 @@ Name: %{name}
 Summary: A library for online banking functions and financial data import/export
 Version: %{version}
 Release: %{release}
-Source: http://www.aquamaniac.de/sites/download/%fname.tar.gz
+# http://www.aquamaniac.de/sites/download/download.php?package=03&release=18&file=01&dummy=
+Source: %fname.tar.gz
 Group: System/Libraries
 License: GPLv2+
 URL: http://www.aquamaniac.de/sites/aqbanking/index.php
@@ -219,7 +220,7 @@ mv %buildroot%_datadir/doc/aqhbci/* installed-docs
 %_libdir/%name/plugins/%major/wizards/qt3-wizard
 %_libdir/%name/plugins/%major/wizards/qt3_wizard.xml
 %_libdir/%name/plugins/%major/debugger/aqhbci/
-%_bindir/qb-help5
+%_bindir/qb-help%{qtmajor}
 %_libdir/%name/plugins/%major/frontends/qbanking/
 
 %files -f %name.lang
