@@ -1,5 +1,5 @@
 %define name aqbanking
-%define version 3.8.0
+%define version 3.8.1
 %define release %mkrel 1
 %define major 20
 %define libname %mklibname %name %major
@@ -17,8 +17,7 @@ Name: %{name}
 Summary: A library for online banking functions and financial data import/export
 Version: %{version}
 Release: %{release}
-# http://www.aquamaniac.de/sites/download/download.php?package=03&release=18&file=01&dummy=
-Source: %fname.tar.gz
+Source: http://files.hboeck.de/aq/%fname.tar.gz
 Group: System/Libraries
 License: GPLv2+
 URL: http://www.aquamaniac.de/sites/aqbanking/index.php
