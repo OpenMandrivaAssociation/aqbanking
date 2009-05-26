@@ -107,7 +107,6 @@ Group: Development/C++
 Requires: %{libname} = %{version}
 Requires: %aqhbcilibname = %version
 Requires: %ofxlibname = %version
-Requires: %qtlibname = %version
 Provides: lib%name-devel = %{version}-%{release}
 Requires: OpenSP-devel
 Provides: aqhbci-devel = %version-%release
