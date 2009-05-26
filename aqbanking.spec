@@ -128,7 +128,7 @@ compiling programs using Aqbanking.
 %build
 #gw don't know where this is supposed to come from:
 export target_cpu=%_arch
-%configure2_5x
+%configure2_5x --enable-qt3=no --with-frontends=""
 #parallel compilation must be disabled
 #otherwise build will be linked with system libraries
 #not the package one
@@ -169,7 +169,7 @@ mv %buildroot%_datadir/doc/aqhbci/* installed-docs
 %dir %{_libdir}/%{name}/plugins
 %dir %{_libdir}/%{name}/plugins/%major/
 %dir %{_libdir}/%{name}/plugins/%major/providers/
-%dir %{_libdir}/%{name}/plugins/%major/wizards/
+#%dir %{_libdir}/%{name}/plugins/%major/wizards/
 %dir %{_libdir}/%{name}/plugins/%major/imexporters/
 %{_libdir}/%{name}/plugins/%major/bankinfo/
 %{_libdir}/%{name}/plugins/%major/imexporters/csv*
@@ -212,7 +212,6 @@ mv %buildroot%_datadir/doc/aqhbci/* installed-docs
 %{_bindir}/aqbanking-config
 %{_includedir}/aqbanking
 %{_includedir}/aqhbci/
-%{_includedir}/qbanking
 %{_includedir}/aqofxconnect/
 %{_libdir}/libaqbanking.la
 %{_libdir}/libaqnone.la
@@ -220,8 +219,6 @@ mv %buildroot%_datadir/doc/aqhbci/* installed-docs
 %{_libdir}/libaqnone.so
 %{_libdir}/libaqhbci.la
 %_libdir/libaqhbci.so
-%{_libdir}/libqbanking.la
-%{_libdir}/libqbanking.so
 %_libdir/libaqofxconnect.so
 %_libdir/libaqofxconnect.la
 %{_datadir}/aclocal/aqbanking.m4
