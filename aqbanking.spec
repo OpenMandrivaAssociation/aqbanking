@@ -1,6 +1,6 @@
 %define name aqbanking
 %define version 3.8.2
-%define release %mkrel 1
+%define release %mkrel 2
 %define major 20
 %define libname %mklibname %name %major
 %define develname %mklibname -d %name
@@ -8,8 +8,6 @@
 %define gwenmajor 47
 %define aqhbcimajor 13
 %define aqhbcilibname %mklibname aqhbci %aqhbcimajor
-%define qtmajor 6
-%define qtlibname %mklibname qbanking %qtmajor
 %define ofxmajor 4
 %define ofxlibname %mklibname aqofxconnect %ofxmajor
 
@@ -26,7 +24,6 @@ BuildRequires: libgwenhywfar-devel >= 3.4.0.0
 BuildRequires: libchipcard-devel
 BuildRequires: libofx-devel >= 0.8.2
 BuildRequires: libktoblzcheck-devel
-BuildRequires: qt3-devel
 BuildRequires: gmp-devel
 
 %description 
@@ -38,24 +35,6 @@ Interface) protocol. Additionally, Aqbanking provides various plugins
 to simplify import and export of financial data. Currently there are
 import plugins for the following formats: DTAUS (German financial
 format), SWIFT (MT940 and MT942).
-
-%package qt3
-Summary: QT3-based front-ends for Aqbanking
-Group: System/Libraries
-Obsoletes: aqhbci-qt-tools
-Provides: aqhbci-qt-tools
-Provides: aqbanking-ofx-qt3
-Obsoletes: aqbanking-ofx-qt3
-%description qt3 
-Necessary for all banking applications.
-
-%package -n %{qtlibname}
-Summary: Library for QT3 front-end for Aqbanding
-Group: System/Libraries
-
-%description -n %{qtlibname}
-Library for the Aqbanking QT3 integration.
-
 
 %package -n %{ofxlibname}
 Summary: Library for OFX access for Aqbanding
@@ -173,32 +152,6 @@ mv %buildroot%_datadir/doc/aqhbci/* installed-docs
 %clean
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
 
-%if %mdkversion < 200900
-%post -n %libname -p /sbin/ldconfig
-%endif
-%if %mdkversion < 200900
-%postun -n %libname -p /sbin/ldconfig
-%endif
-%if %mdkversion < 200900
-%post -n %aqhbcilibname -p /sbin/ldconfig
-%endif
-%if %mdkversion < 200900
-%postun -n %aqhbcilibname -p /sbin/ldconfig
-%endif
-%if %mdkversion < 200900
-%post -n %qtlibname -p /sbin/ldconfig
-%endif
-%if %mdkversion < 200900
-%postun -n %qtlibname -p /sbin/ldconfig
-%endif
-%if %mdkversion < 200900
-%post -n %ofxlibname -p /sbin/ldconfig
-%endif
-%if %mdkversion < 200900
-%postun -n %ofxlibname -p /sbin/ldconfig
-%endif
-
-
 %files -n aqhbci
 %defattr(-,root,root)
 %doc src/plugins/backends/aqhbci/tools/aqhbci-tool/README
@@ -209,18 +162,6 @@ mv %buildroot%_datadir/doc/aqhbci/* installed-docs
 %files -n %aqhbcilibname
 %defattr(-,root,root)
 %_libdir/libaqhbci.so.%{aqhbcimajor}*
-
-%files -n %qtlibname
-%defattr(-,root,root)
-%{_libdir}/libqbanking.so.%{qtmajor}*
-
-%files qt3
-%defattr(-,root,root)
-%_libdir/%name/plugins/%major/wizards/qt3-wizard
-%_libdir/%name/plugins/%major/wizards/qt3_wizard.xml
-%_libdir/%name/plugins/%major/debugger/aqhbci/
-%_bindir/qb-help%{qtmajor}
-%_libdir/%name/plugins/%major/frontends/qbanking/
 
 %files -f %name.lang
 %defattr(-,root,root)
