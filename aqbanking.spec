@@ -1,14 +1,14 @@
 %define name aqbanking
-%define version 3.8.2
-%define release %mkrel 2
-%define major 20
+%define version 4.0.0
+%define release %mkrel 1
+%define major 29
 %define libname %mklibname %name %major
 %define develname %mklibname -d %name
 %define fname %name-%{version}
 %define gwenmajor 47
-%define aqhbcimajor 13
+%define aqhbcimajor 16
 %define aqhbcilibname %mklibname aqhbci %aqhbcimajor
-%define ofxmajor 4
+%define ofxmajor 5
 %define ofxlibname %mklibname aqofxconnect %ofxmajor
 
 Name: %{name}
@@ -154,7 +154,7 @@ mv %buildroot%_datadir/doc/aqhbci/* installed-docs
 %files -n aqhbci
 %defattr(-,root,root)
 %doc src/plugins/backends/aqhbci/tools/aqhbci-tool/README
-%_bindir/aqhbci-tool3
+%_bindir/aqhbci-tool4
 %{_bindir}/hbcixml3
 %_libdir/%name/plugins/%major/providers/aqhbci*
 
@@ -165,6 +165,7 @@ mv %buildroot%_datadir/doc/aqhbci/* installed-docs
 %files -f %name.lang
 %defattr(-,root,root)
 %doc installed-docs
+%{_bindir}/aqbanking-cli
 %dir %{_libdir}/%{name}
 %dir %{_libdir}/%{name}/plugins
 %dir %{_libdir}/%{name}/plugins/%major/
@@ -173,6 +174,7 @@ mv %buildroot%_datadir/doc/aqhbci/* installed-docs
 %dir %{_libdir}/%{name}/plugins/%major/imexporters/
 %{_libdir}/%{name}/plugins/%major/bankinfo/
 %{_libdir}/%{name}/plugins/%major/imexporters/csv*
+%{_libdir}/%{name}/plugins/%major/imexporters/ctxfile*
 %{_libdir}/%{name}/plugins/%major/imexporters/dtaus*
 %{_libdir}/%{name}/plugins/%major/imexporters/eri*
 %{_libdir}/%{name}/plugins/%major/imexporters/openhbci*
