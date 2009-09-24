@@ -1,6 +1,6 @@
 %define name aqbanking
 %define version 4.1.7
-%define release %mkrel 1
+%define release %mkrel 2
 %define major 29
 %define libname %mklibname %name %major
 %define develname %mklibname -d %name
@@ -8,6 +8,8 @@
 %define gwenmajor 47
 %define aqhbcimajor 16
 %define aqhbcilibname %mklibname aqhbci %aqhbcimajor
+%define qtmajor 8
+%define qtlibname %mklibname qbanking %qtmajor
 %define ofxmajor 5
 %define ofxlibname %mklibname aqofxconnect %ofxmajor
 
@@ -25,6 +27,8 @@ BuildRequires: libchipcard-devel
 BuildRequires: libofx-devel >= 0.8.2
 BuildRequires: libktoblzcheck-devel
 BuildRequires: gmp-devel
+BuildRequires: qt4-devel
+BuildConflicts: qt3-devel
 
 %description 
 The intention of AqBanking is to provide a middle layer between the
@@ -36,27 +40,29 @@ to simplify import and export of financial data. Currently there are
 import plugins for the following formats: DTAUS (German financial
 format), SWIFT (MT940 and MT942).
 
+%package qt3
+Summary: QT3-based front-ends for Aqbanking
+Group: System/Libraries
+Obsoletes: aqhbci-qt-tools
+Provides: aqhbci-qt-tools
+Provides: aqbanking-ofx-qt3
+Obsoletes: aqbanking-ofx-qt3
+%description qt3 
+Necessary for all banking applications.
+
+%package -n %{qtlibname}
+Summary: Library for QT3 front-end for Aqbanding
+Group: System/Libraries
+
+%description -n %{qtlibname}
+Library for the Aqbanking QT3 integration.
+
 %package -n %{ofxlibname}
 Summary: Library for OFX access for Aqbanding
 Group: System/Libraries
 
 %description -n %{ofxlibname}
 Library for the Aqbanking OFX access.
-
-%if 0
-%package geldkarte
-Summary: Aqbanking tools for Geldkarte
-Group: System/Libraries
-%description geldkarte
-Necessary for accessing the German Geldkarte system.
-
-%package geldkarte-qt3
-Summary: Aqbanking tools for Geldkarte
-Group: System/Libraries
-Requires: %name-geldkarte = %version
-%description geldkarte-qt3
-Necessary for accessing the German Geldkarte system.
-%endif
 
 %package ofx
 Summary: Aqbanking tools for OFX
@@ -106,6 +112,7 @@ Summary: Aqbanking development kit
 Group: Development/C++
 Requires: %{libname} = %{version}
 Requires: %aqhbcilibname = %version
+Requires: %qtlibname = %version
 Requires: %ofxlibname = %version
 Provides: lib%name-devel = %{version}-%{release}
 Requires: OpenSP-devel
@@ -128,11 +135,14 @@ compiling programs using Aqbanking.
 %build
 #gw don't know where this is supposed to come from:
 export target_cpu=%_arch
-%configure2_5x --enable-qt3=no --with-frontends=""
+export qt3_libs="$(pkg-config QtCore QtGui Qt3Support --libs)"
+export qt3_includes="$(pkg-config QtCore QtGui Qt3Support --cflags)"
+export PATH=%_libdir/qt4/bin:$PATH
+%configure2_5x --with-frontends="qbanking"
 #parallel compilation must be disabled
 #otherwise build will be linked with system libraries
 #not the package one
-make
+make qt4-port
 
 %install
 rm -rf $RPM_BUILD_ROOT %name.lang installed-docs
@@ -161,6 +171,18 @@ mv %buildroot%_datadir/doc/aqhbci/* installed-docs
 %files -n %aqhbcilibname
 %defattr(-,root,root)
 %_libdir/libaqhbci.so.%{aqhbcimajor}*
+
+%files -n %qtlibname
+%defattr(-,root,root)
+%{_libdir}/libqbanking.so.%{qtmajor}*
+
+%files qt3
+%defattr(-,root,root)
+%_libdir/%name/plugins/%major/wizards/qt3-wizard
+%_libdir/%name/plugins/%major/wizards/qt3_wizard.xml
+%_libdir/%name/plugins/%major/debugger/aqhbci/
+%_bindir/qb-help%{qtmajor}
+%_libdir/%name/plugins/%major/frontends/qbanking/
 
 %files -f %name.lang
 %defattr(-,root,root)
@@ -195,11 +217,6 @@ mv %buildroot%_datadir/doc/aqhbci/* installed-docs
 %dir %{_libdir}/%{name}/plugins/%major/imexporters/ofx*
 %{_libdir}/%{name}/plugins/%major/providers/aqofxconnect*
 
-#%files geldkarte
-#%defattr(-,root,root)
-#%{_libdir}/%{name}/plugins/%major/providers/aqgeldkarte*
-
-
 %files -n %ofxlibname
 %defattr(-,root,root)
 %_libdir/libaqofxconnect.so.%{ofxmajor}*
@@ -215,6 +232,7 @@ mv %buildroot%_datadir/doc/aqhbci/* installed-docs
 %{_includedir}/aqbanking
 %{_includedir}/aqhbci/
 %{_includedir}/aqofxconnect/
+%{_includedir}/qbanking
 %{_libdir}/libaqbanking.la
 %{_libdir}/libaqnone.la
 %{_libdir}/libaqbanking.so
@@ -223,5 +241,7 @@ mv %buildroot%_datadir/doc/aqhbci/* installed-docs
 %_libdir/libaqhbci.so
 %_libdir/libaqofxconnect.so
 %_libdir/libaqofxconnect.la
+%_libdir/libqbanking.la
+%_libdir/libqbanking.so
 %{_datadir}/aclocal/aqbanking.m4
 %_libdir/pkgconfig/aqbanking.pc
