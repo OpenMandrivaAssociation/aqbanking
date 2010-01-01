@@ -1,12 +1,12 @@
 %define name aqbanking
-%define version 4.1.7
-%define release %mkrel 2
+%define version 4.2.2
+%define release %mkrel 1
 %define major 29
 %define libname %mklibname %name %major
 %define develname %mklibname -d %name
 %define fname %name-%{version}
 %define gwenmajor 47
-%define aqhbcimajor 16
+%define aqhbcimajor 17
 %define aqhbcilibname %mklibname aqhbci %aqhbcimajor
 %define qtmajor 8
 %define qtlibname %mklibname qbanking %qtmajor
