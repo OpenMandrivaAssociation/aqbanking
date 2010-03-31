@@ -1,10 +1,10 @@
 %define name aqbanking
-%define version 4.2.4
-%define release %mkrel 3
+%define version 4.2.7
+%define release %mkrel 1
 %define major 29
 %define libname %mklibname %name %major
 %define develname %mklibname -d %name
-%define fname %name-%{version}
+%define fname %name-%{version}beta
 %define gwenmajor 47
 %define aqhbcimajor 17
 %define aqhbcilibname %mklibname aqhbci %aqhbcimajor
@@ -24,7 +24,7 @@ Group: System/Libraries
 License: GPLv2+
 URL: http://www.aquamaniac.de/sites/aqbanking/index.php
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
-BuildRequires: libgwenhywfar-devel >= 3.10
+BuildRequires: libgwenhywfar-devel >= 3.11.4
 BuildRequires: libchipcard-devel
 BuildRequires: libofx-devel >= 0.8.2
 BuildRequires: libktoblzcheck-devel
