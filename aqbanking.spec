@@ -1,16 +1,14 @@
 %define name aqbanking
-%define version 4.2.9
+%define version 4.99.11
 %define release %mkrel 1
-%define major 29
+%define major 32
 %define libname %mklibname %name %major
 %define develname %mklibname -d %name
 %define fname %name-%{version}beta
-%define gwenmajor 47
-%define aqhbcimajor 17
+%define gwenmajor 59
+%define aqhbcimajor 18
 %define aqhbcilibname %mklibname aqhbci %aqhbcimajor
-%define qtmajor 1
-%define qtlibname %mklibname q4banking %qtmajor
-%define ofxmajor 5
+%define ofxmajor 6
 %define ofxlibname %mklibname aqofxconnect %ofxmajor
 
 Name: %{name}
@@ -18,13 +16,13 @@ Summary: A library for online banking functions and financial data import/export
 Version: %{version}
 Release: %{release}
 Source: http://files.hboeck.de/aq/%fname.tar.gz
-Patch0: aqbanking-4.2.4-fix-link.patch
+Patch0: aqbanking-4.99.6-fix-link.patch
 Patch1: aqbanking-4.2.4-fix-build.patch
 Group: System/Libraries
 License: GPLv2+
 URL: http://www.aquamaniac.de/sites/aqbanking/index.php
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
-BuildRequires: libgwenhywfar-devel >= 3.11.4
+BuildRequires: libgwenhywfar-devel >= 3.99.0.0
 BuildRequires: libchipcard-devel
 BuildRequires: libofx-devel >= 0.8.2
 BuildRequires: libktoblzcheck-devel
@@ -40,25 +38,6 @@ Interface) protocol. Additionally, Aqbanking provides various plugins
 to simplify import and export of financial data. Currently there are
 import plugins for the following formats: DTAUS (German financial
 format), SWIFT (MT940 and MT942).
-
-%package qt4
-Summary: QT4-based front-ends for Aqbanking
-Group: System/Libraries
-Obsoletes: aqhbci-qt-tools
-Provides: aqhbci-qt-tools
-Provides: aqbanking-ofx-qt4
-Obsoletes: aqbanking-qt3 < 4.2.4-3 
-Obsoletes: aqbanking-ofx-qt3
-
-%description qt4
-Necessary for all banking applications.
-
-%package -n %{qtlibname}
-Summary: Library for QT3 front-end for Aqbanding
-Group: System/Libraries
-
-%description -n %{qtlibname}
-Library for the Aqbanking QT3 integration.
 
 %package -n %{ofxlibname}
 Summary: Library for OFX access for Aqbanding
@@ -113,9 +92,9 @@ Summary: Aqbanking development kit
 Group: Development/C++
 Requires: %{libname} = %{version}
 Requires: %aqhbcilibname = %version
-Requires: %qtlibname = %version
 Requires: %ofxlibname = %version
 Provides: lib%name-devel = %{version}-%{release}
+Provides: %name-devel = %{version}-%{release}
 Requires: OpenSP-devel
 Provides: aqhbci-devel = %version-%release
 Provides: libaqhbci-devel = %version-%release
@@ -135,9 +114,7 @@ compiling programs using Aqbanking.
 
 %build
 autoreconf -fi
-%configure2_5x --enable-qt4 --disable-qt3 --with-frontends="q4banking" \
-  --with-qt4-includes=%{qt4include} \
-  --with-qt4-libs=%{qt4lib}
+%configure2_5x
 %make
 
 %install
@@ -165,18 +142,6 @@ mv %buildroot%_datadir/doc/aqhbci/* installed-docs
 %defattr(-,root,root)
 %_libdir/libaqhbci.so.%{aqhbcimajor}*
 
-%files -n %qtlibname
-%defattr(-,root,root)
-%{_libdir}/libq4banking.so.%{qtmajor}*
-
-%files qt4
-%defattr(-,root,root)
-%_libdir/%name/plugins/%major/wizards/qt4-wizard
-%_libdir/%name/plugins/%major/wizards/qt4_wizard.xml
-%_libdir/%name/plugins/%major/debugger/aqhbci/
-%_bindir/q4b-help%{qtmajor}
-%_libdir/%name/plugins/%major/frontends/q4banking/
-
 %files -f %name.lang
 %defattr(-,root,root)
 %doc installed-docs
@@ -192,6 +157,7 @@ mv %buildroot%_datadir/doc/aqhbci/* installed-docs
 %{_libdir}/%{name}/plugins/%major/imexporters/dtaus*
 %{_libdir}/%{name}/plugins/%major/imexporters/eri*
 %{_libdir}/%{name}/plugins/%major/imexporters/openhbci*
+%{_libdir}/%{name}/plugins/%major/imexporters/q43.*
 %{_libdir}/%{name}/plugins/%major/imexporters/sepa*
 %{_libdir}/%{name}/plugins/%major/imexporters/swift*
 %{_libdir}/%{name}/plugins/%major/imexporters/xmldb*
@@ -220,14 +186,10 @@ mv %buildroot%_datadir/doc/aqhbci/* installed-docs
 %files -n %develname
 %defattr(-,root,root)
 %{_bindir}/aqbanking-config
-%{_includedir}/aqbanking
-%{_includedir}/aqhbci/
-%{_includedir}/aqofxconnect/
-%{_includedir}/q4banking
+%{_includedir}/aqbanking5
 %{_libdir}/libaqbanking.so
 %{_libdir}/libaqnone.so
 %{_libdir}/libaqhbci.so
 %{_libdir}/libaqofxconnect.so
-%{_libdir}/libq4banking.so
 %{_datadir}/aclocal/aqbanking.m4
 %{_libdir}/pkgconfig/aqbanking.pc
