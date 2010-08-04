@@ -1,5 +1,5 @@
 %define name aqbanking
-%define version 4.99.11
+%define version 4.99.14
 %define release %mkrel 1
 %define major 32
 %define libname %mklibname %name %major
@@ -110,7 +110,7 @@ compiling programs using Aqbanking.
 %prep
 %setup -q -n %fname
 %patch0 -p0 -b .link
-%patch1 -p0 -b .build
+#%patch1 -p0 -b .build
 
 %build
 autoreconf -fi
