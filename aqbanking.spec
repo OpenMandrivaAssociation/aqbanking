@@ -1,10 +1,10 @@
 %define name aqbanking
-%define version 4.99.14
+%define version 4.99.20
 %define release %mkrel 1
 %define major 32
 %define libname %mklibname %name %major
 %define develname %mklibname -d %name
-%define fname %name-%{version}beta
+%define fname %name-%{version}rc4
 %define gwenmajor 59
 %define aqhbcimajor 18
 %define aqhbcilibname %mklibname aqhbci %aqhbcimajor
@@ -17,12 +17,11 @@ Version: %{version}
 Release: %{release}
 Source: http://files.hboeck.de/aq/%fname.tar.gz
 Patch0: aqbanking-4.99.6-fix-link.patch
-Patch1: aqbanking-4.2.4-fix-build.patch
 Group: System/Libraries
 License: GPLv2+
 URL: http://www.aquamaniac.de/sites/aqbanking/index.php
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
-BuildRequires: libgwenhywfar-devel >= 3.99.0.0
+BuildRequires: libgwenhywfar-devel >= 3.99.18.0
 BuildRequires: libchipcard-devel
 BuildRequires: libofx-devel >= 0.8.2
 BuildRequires: libktoblzcheck-devel
@@ -109,10 +108,8 @@ compiling programs using Aqbanking.
 %prep
 %setup -q -n %fname
 %patch0 -p0 -b .link
-#%patch1 -p0 -b .build
 
 %build
-autoreconf -fi
 %configure2_5x
 %make
 
