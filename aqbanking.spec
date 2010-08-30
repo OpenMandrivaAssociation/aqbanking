@@ -1,14 +1,14 @@
 %define name aqbanking
-%define version 4.99.25
+%define version 5.0.0
 %define release %mkrel 1
-%define major 32
+%define major 33
 %define libname %mklibname %name %major
 %define develname %mklibname -d %name
-%define fname %name-%{version}rc
-%define gwenmajor 59
-%define aqhbcimajor 18
+%define fname %name-%{version}
+%define gwenmajor 60
+%define aqhbcimajor 19
 %define aqhbcilibname %mklibname aqhbci %aqhbcimajor
-%define ofxmajor 6
+%define ofxmajor 7
 %define ofxlibname %mklibname aqofxconnect %ofxmajor
 
 Name: %{name}
