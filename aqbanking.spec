@@ -10,6 +10,8 @@
 %define aqhbcilibname %mklibname aqhbci %aqhbcimajor
 %define ofxmajor 7
 %define ofxlibname %mklibname aqofxconnect %ofxmajor
+%define cppmajor 0
+%define cpplibname %mklibname aqbankingpp ccppmajor
 
 Name: %{name}
 Summary: A library for online banking functions and financial data import/export
@@ -43,6 +45,13 @@ Group: System/Libraries
 
 %description -n %{ofxlibname}
 Library for the Aqbanking OFX access.
+
+%package -n %{cpplibname}
+Summary: CPP wrapper Aqbanding
+Group: System/Libraries
+
+%description -n %{cpplibname}
+This is the CPP wrapper for Aqbanding.
 
 %package ofx
 Summary: Aqbanking tools for OFX
@@ -91,6 +100,7 @@ Group: Development/C++
 Requires: %{libname} = %{version}
 Requires: %aqhbcilibname = %version
 Requires: %ofxlibname = %version
+Requires: %{cpplibname} = %version
 Provides: lib%name-devel = %{version}-%{release}
 Provides: %name-devel = %{version}-%{release}
 Requires: OpenSP-devel
@@ -174,6 +184,10 @@ mv %buildroot%_datadir/doc/aqhbci/* installed-docs
 %defattr(-,root,root)
 %_libdir/libaqofxconnect.so.%{ofxmajor}*
 
+%files -n %{cpplibname}
+%defattr(-,root,root)
+%_libdir/libaqbankingpp.so.%{cppmajor}*
+
 %files -n %libname
 %defattr(-,root,root)
 %{_libdir}/libaqbanking.so.%{major}*
@@ -183,6 +197,7 @@ mv %buildroot%_datadir/doc/aqhbci/* installed-docs
 %defattr(-,root,root)
 %{_bindir}/aqbanking-config
 %{_includedir}/aqbanking5
+%{_libdir}/libaqbankingpp.so
 %{_libdir}/libaqbanking.so
 %{_libdir}/libaqnone.so
 %{_libdir}/libaqhbci.so
