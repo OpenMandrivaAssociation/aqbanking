@@ -1,6 +1,6 @@
 %define name aqbanking
 %define version 5.0.7
-%define release %mkrel 2
+%define release %mkrel 3
 %define major 33
 %define libname %mklibname %name %major
 %define develname %mklibname -d %name
@@ -11,7 +11,7 @@
 %define ofxmajor 7
 %define ofxlibname %mklibname aqofxconnect %ofxmajor
 %define cppmajor 0
-%define cpplibname %mklibname aqbankingpp %ccppmajor
+%define cpplibname %mklibname aqbankingpp %cppmajor
 
 Name: %{name}
 Summary: A library for online banking functions and financial data import/export
@@ -50,6 +50,7 @@ Library for the Aqbanking OFX access.
 Summary: CPP wrapper Aqbanding
 Group: System/Libraries
 Obsoletes: %{_lib}aqbankingppccppmajor < 5.0.7-2
+Obsoletes: %{_lib}aqbankingpp%ccppmajor < 5.0.7-3
 
 %description -n %{cpplibname}
 This is the CPP wrapper for Aqbanding.
