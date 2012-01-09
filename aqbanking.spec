@@ -1,5 +1,5 @@
 %define name aqbanking
-%define version 5.0.16
+%define version 5.0.21
 %define release %mkrel 1
 %define major 33
 %define libname %mklibname %{name} %{major}
@@ -13,21 +13,21 @@
 %define cppmajor 0
 %define cpplibname %mklibname aqbankingpp %{cppmajor}
 
-Name: %{name}
-Summary: A library for online banking functions and financial data import/export
-Version: %{version}
-Release: %{release}
-Source: http://files.hboeck.de/aq/%fname.tar.gz
-Patch0: aqbanking-4.99.6-fix-link.patch
-Group: System/Libraries
-License: GPLv2+
-URL: http://www.aquamaniac.de/sites/aqbanking/index.php
-BuildRoot: %{_tmppath}/%{name}-%{version}-root
-BuildRequires: libgwenhywfar-devel >= 4.0.4
-BuildRequires: libchipcard-devel
-BuildRequires: libofx-devel >= 0.8.2
-BuildRequires: libktoblzcheck-devel
-BuildRequires: gmp-devel
+Name:		%{name}
+Summary:	A library for online banking functions and financial data import/export
+Version:	%{version}
+Release:	%{release}
+Source:		http://files.hboeck.de/aq/%fname.tar.gz
+Patch0:		aqbanking-4.99.6-fix-link.patch
+Group:		System/Libraries
+License:	GPLv2+
+URL:		http://www.aquamaniac.de/sites/aqbanking/index.php
+BuildRoot:	%{_tmppath}/%{name}-%{version}-root
+BuildRequires:	libgwenhywfar-devel >= 4.0.4
+BuildRequires:	libchipcard-devel
+BuildRequires:	libofx-devel >= 0.8.2
+BuildRequires:	libktoblzcheck-devel
+BuildRequires:	gmp-devel
 
 %description 
 The intention of AqBanking is to provide a middle layer between the
@@ -40,17 +40,17 @@ import plugins for the following formats: DTAUS (German financial
 format), SWIFT (MT940 and MT942).
 
 %package -n %{ofxlibname}
-Summary: Library for OFX access for Aqbanding
-Group: System/Libraries
+Summary:	Library for OFX access for Aqbanding
+Group:		System/Libraries
 
 %description -n %{ofxlibname}
 Library for the Aqbanking OFX access.
 
 %package -n %{cpplibname}
-Summary: CPP wrapper Aqbanding
-Group: System/Libraries
-Obsoletes: %{_lib}aqbankingppccppmajor < 5.0.7-2
-Obsoletes: %{_lib}aqbankingpp%{ccppmajor} < 5.0.7-3
+Summary:	CPP wrapper Aqbanding
+Group:		System/Libraries
+Obsoletes:	%{_lib}aqbankingppccppmajor < 5.0.7-2
+Obsoletes:	%{_lib}aqbankingpp%{ccppmajor} < 5.0.7-3
 
 %description -n %{cpplibname}
 This is the CPP wrapper for Aqbanding.
@@ -63,28 +63,28 @@ Group: System/Libraries
 Necessary for OFX direct connect access.
 
 %package -n aqhbci
-Summary: The HBCI backend for the Aqbanking library
-Group: System/Libraries
+Summary:	The HBCI backend for the Aqbanking library
+Group:		System/Libraries
 
 %description -n aqhbci
 This is the backend for the Aqbanking library which 
 implements a client for the German HBCI (Home Banking Computer
-Interface) protocol. 
+Interface) protocol.
 
 %package -n %{aqhbcilibname}
-Summary: Library for HBCI backend for Aqbanding
-Group: System/Libraries
-Requires: aqhbci >= %{version}
+Summary:	Library for HBCI backend for Aqbanding
+Group:		System/Libraries
+Requires:	aqhbci >= %{version}
 
 %description -n %{aqhbcilibname}
 This is the backend for the Aqbanking library which 
 implements a client for the German HBCI (Home Banking Computer
-Interface) protocol. 
+Interface) protocol.
 
 %package -n %{libname}
-Summary: A library for online banking functions and financial data import/export
-Group: System/Libraries
-Requires: %{name} >= %{version}
+Summary:	A library for online banking functions and financial data import/export
+Group:		System/Libraries
+Requires:	%{name} >= %{version}
 
 %description -n %{libname}
 The intention of AqBanking is to provide a middle layer between the
@@ -97,21 +97,21 @@ import plugins for the following formats: DTAUS (German financial
 format), SWIFT (MT940 and MT942).
 
 %package -n %{develname}
-Summary: Aqbanking development kit
-Group: Development/C++
-Requires: %{libname} = %{version}
-Requires: %{aqhbcilibname} = %{version}
-Requires: %{ofxlibname} = %{version}
-Requires: %{cpplibname} = %{version}
-Provides: lib%{name}-devel = %{version}-%{release}
-Provides: %{name}-devel = %{version}-%{release}
-Requires: OpenSP-devel
-Provides: aqhbci-devel = %{version}-%{release}
-Provides: libaqhbci-devel = %{version}-%{release}
-Obsoletes: %mklibname -d %{name} 16
-Obsoletes: %mklibname -d aqhbci 10
-Obsoletes: %mklibname -d qbanking 4
-Obsoletes: %mklibname -d aqofxconnect 3
+Summary:	Aqbanking development kit
+Group:		Development/C++
+Requires:	%{libname} = %{version}
+Requires:	%{aqhbcilibname} = %{version}
+Requires:	%{ofxlibname} = %{version}
+Requires:	%{cpplibname} = %{version}
+Provides:	lib%{name}-devel = %{version}-%{release}
+Provides:	%{name}-devel = %{version}-%{release}
+Requires:	OpenSP-devel
+Provides:	aqhbci-devel = %{version}-%{release}
+Provides:	libaqhbci-devel = %{version}-%{release}
+Obsoletes:	%mklibname -d %{name} 16
+Obsoletes:	%mklibname -d aqhbci 10
+Obsoletes:	%mklibname -d qbanking 4
+Obsoletes:	%mklibname -d aqofxconnect 3
 
 %description -n %{develname}
 This package contains aqbanking-config and header files for writing and
