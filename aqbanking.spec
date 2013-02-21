@@ -13,7 +13,7 @@
 Name:		aqbanking
 Summary:	A library for online banking functions and financial data import/export
 Version:	5.0.25
-Release:	1
+Release:	2
 Group:		System/Libraries
 License:	GPLv2+
 URL:		http://www.aquamaniac.de/sites/aqbanking/index.php
@@ -99,7 +99,7 @@ Requires:	%{ofxlibname} = %{version}-%{release}
 Requires:	%{cpplibname} = %{version}-%{release}
 Provides:	lib%{name}-devel = %{version}-%{release}
 Provides:	%{name}-devel = %{version}-%{release}
-Requires:	OpenSP-devel
+Requires:	opensp-devel
 Provides:	aqhbci-devel = %{version}-%{release}
 Provides:	libaqhbci-devel = %{version}-%{release}
 
