@@ -13,7 +13,7 @@
 Summary:	A library for online banking functions and financial data import/export
 Name:		aqbanking
 Version:	5.0.25
-Release:	3
+Release:	4
 License:	GPLv2+
 Group:		System/Libraries
 Url:		http://www.aquamaniac.de/sites/aqbanking/index.php
