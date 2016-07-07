@@ -1,24 +1,26 @@
-%define major 34
+%define major 35
 %define libname %mklibname %{name} %{major}
 %define devname %mklibname -d %{name}
 
 %define gwenmajor 60
-%define aqhbcimajor 20
+%define aqhbcimajor 22
 %define aqhbcilibname %mklibname aqhbci %{aqhbcimajor}
 %define ofxmajor 7
 %define ofxlibname %mklibname aqofxconnect %{ofxmajor}
 %define cppmajor 0
 %define cpplibname %mklibname aqbankingpp %{cppmajor}
+%define ebicsmajor 0
+%define ebicslibname %mklibname aqebics %ebicsmajor
 
 Summary:	A library for online banking functions and financial data import/export
 Name:		aqbanking
-Version:	5.0.25
-Release:	11
+Version:	5.6.10
+Release:	1
 License:	GPLv2+
 Group:		System/Libraries
 Url:		http://www.aquamaniac.de/sites/aqbanking/index.php
 Source:		http://files.hboeck.de/aq/%{name}-%{version}.tar.gz
-Patch0:		aqbanking-4.99.6-fix-link.patch
+Patch0:		aqbanking-5.5.1-fix-link.patch
 BuildRequires:	pkgconfig(gwenhywfar)
 BuildRequires:	libchipcard-devel
 BuildRequires:	pkgconfig(libofx)
@@ -76,6 +78,22 @@ This is the backend for the Aqbanking library which
 implements a client for the German HBCI (Home Banking Computer
 Interface) protocol.
 
+%package -n aqebics
+Summary: The EBICS backend for the Aqbanking library
+Group: System/Libraries
+
+%description -n aqebics
+This is the backend for the Aqbanking library which
+implements a client for the EBICS protocol.
+
+%package -n %{ebicslibname}
+Summary: Library for AqEBICS backend for Aqbanding
+Group: System/Libraries
+
+%description -n %{ebicslibname}
+This is the backend for the Aqbanking library which
+implements a client for the EBICS protocol.
+
 %package -n %{libname}
 Summary:	A library for online banking functions and financial data import/export
 Group:		System/Libraries
@@ -98,6 +116,7 @@ Requires:	%{libname} = %{version}-%{release}
 Requires:	%{aqhbcilibname} = %{version}-%{release}
 Requires:	%{ofxlibname} = %{version}-%{release}
 Requires:	%{cpplibname} = %{version}-%{release}
+Requires:	%{ebicslibname} = %version
 Provides:	lib%{name}-devel = %{version}-%{release}
 Provides:	%{name}-devel = %{version}-%{release}
 Requires:	opensp-devel
@@ -111,6 +130,8 @@ compiling programs using Aqbanking.
 %prep
 %setup -q
 %patch0 -p0 -b .link
+
+autoreconf -fiv
 
 %build
 %configure2_5x
@@ -142,6 +163,7 @@ mv %{buildroot}%{_datadir}/doc/aqhbci/* installed-docs
 %dir %{_libdir}/%{name}/plugins/%{major}/
 %dir %{_libdir}/%{name}/plugins/%{major}/providers/
 %dir %{_libdir}/%{name}/plugins/%{major}/imexporters/
+%dir %{_libdir}/%{name}/plugins/%{major}/dbio/
 %{_libdir}/%{name}/plugins/%{major}/bankinfo/
 %{_libdir}/%{name}/plugins/%{major}/imexporters/csv*
 %{_libdir}/%{name}/plugins/%{major}/imexporters/ctxfile*
@@ -154,10 +176,10 @@ mv %{buildroot}%{_datadir}/doc/aqhbci/* installed-docs
 %{_libdir}/%{name}/plugins/%{major}/imexporters/xmldb*
 %{_libdir}/%{name}/plugins/%{major}/imexporters/yellownet*
 %{_libdir}/%{name}/plugins/%{major}/providers/aqnone*
-%{_libdir}/gwenhywfar/plugins/%{gwenmajor}/dbio/dtaus.so
-%{_libdir}/gwenhywfar/plugins/%{gwenmajor}/dbio/dtaus.xml
-%{_libdir}/gwenhywfar/plugins/%{gwenmajor}/dbio/swift.so
-%{_libdir}/gwenhywfar/plugins/%{gwenmajor}/dbio/swift.xml
+%{_libdir}/%{name}/plugins/%{major}/dbio/dtaus.so
+%{_libdir}/%{name}/plugins/%{major}/dbio/dtaus.xml
+%{_libdir}/%{name}/plugins/%{major}/dbio/swift.so
+%{_libdir}/%{name}/plugins/%{major}/dbio/swift.xml
 %{_datadir}/%{name}
 
 %files ofx
@@ -170,6 +192,14 @@ mv %{buildroot}%{_datadir}/doc/aqhbci/* installed-docs
 %files -n %{cpplibname}
 %{_libdir}/libaqbankingpp.so.%{cppmajor}*
 
+%files -n aqebics
+%_bindir/aqebics-tool
+%{_libdir}/%{name}/plugins/%major/providers/aqebics.*
+%doc %{_docdir}/aqebics
+
+%files -n %{ebicslibname}
+%_libdir/libaqebics.so.%{ebicsmajor}*
+
 %files -n %{libname}
 %{_libdir}/libaqbanking.so.%{major}*
 %{_libdir}/libaqnone.so.%{major}*
@@ -177,11 +207,14 @@ mv %{buildroot}%{_datadir}/doc/aqhbci/* installed-docs
 %files -n %{devname}
 %{_bindir}/aqbanking-config
 %{_includedir}/aqbanking5
+%{_includedir}/aqebics
+%{_libdir}/cmake/aqbanking-5.6
 %{_libdir}/libaqbankingpp.so
 %{_libdir}/libaqbanking.so
 %{_libdir}/libaqnone.so
 %{_libdir}/libaqhbci.so
 %{_libdir}/libaqofxconnect.so
+%{_libdir}/libaqebics.so
 %{_datadir}/aclocal/aqbanking.m4
 %{_libdir}/pkgconfig/aqbanking.pc
 
