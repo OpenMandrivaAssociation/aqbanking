@@ -27,6 +27,9 @@ BuildRequires:	pkgconfig(libofx)
 BuildRequires:	pkgconfig(ktoblzcheck)
 BuildRequires:	gmp-devel
 BuildRequires:	gwenhywfar-tools
+BuildRequires:	pkgconfig(libxml-2.0)
+BuildRequires:	pkgconfig(libxslt)
+BuildRequires:	pkgconfig(xmlsec1-gnutls) >= 1.0.0
 
 %description
 The intention of AqBanking is to provide a middle layer between the
