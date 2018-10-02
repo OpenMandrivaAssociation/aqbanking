@@ -26,6 +26,7 @@ Patch0:		aqbanking-5.5.1-fix-link.patch
 Patch1:		aqbanking-5.7.8-cpp11.patch
 BuildRequires:	pkgconfig(gwenhywfar)
 BuildRequires:	libchipcard-devel
+BuildRequires:	libtool-devel
 BuildRequires:	pkgconfig(libofx)
 BuildRequires:	pkgconfig(ktoblzcheck)
 BuildRequires:	gmp-devel
