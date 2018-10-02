@@ -3,7 +3,7 @@
 %define devname %mklibname -d %{name}
 
 %define gwenmajor 60
-%define aqhbcimajor 22
+%define aqhbcimajor 24
 %define aqhbcilibname %mklibname aqhbci %{aqhbcimajor}
 %define ofxmajor 7
 %define ofxlibname %mklibname aqofxconnect %{ofxmajor}
@@ -11,10 +11,12 @@
 %define cpplibname %mklibname aqbankingpp %{cppmajor}
 %define ebicsmajor 0
 %define ebicslibname %mklibname aqebics %ebicsmajor
+%define paypalmajor 0
+%define paypallibname %mklibname paypal %paypalmajor
 
 Summary:	A library for online banking functions and financial data import/export
 Name:		aqbanking
-Version:	5.6.10
+Version:	5.7.8
 Release:	1
 License:	GPLv2+
 Group:		System/Libraries
@@ -89,6 +91,14 @@ Group: System/Libraries
 This is the backend for the Aqbanking library which
 implements a client for the EBICS protocol.
 
+%package -n aqpaypal
+Summary: The Paypal backend for the Aqbanking library
+Group: System/Libraries
+
+%description -n aqpaypal
+This is the backend for the Aqbanking library which
+implements a client for Paypal
+
 %package -n %{ebicslibname}
 Summary: Library for AqEBICS backend for Aqbanding
 Group: System/Libraries
@@ -96,6 +106,14 @@ Group: System/Libraries
 %description -n %{ebicslibname}
 This is the backend for the Aqbanking library which
 implements a client for the EBICS protocol.
+
+%package -n %{paypallibname}
+Summary: Library for Paypal backend for Aqbanding
+Group: System/Libraries
+
+%description -n %{paypallibname}
+This is the backend for the Aqbanking library which
+implements a client for Paypal.
 
 %package -n %{libname}
 Summary:	A library for online banking functions and financial data import/export
@@ -119,7 +137,8 @@ Requires:	%{libname} = %{version}-%{release}
 Requires:	%{aqhbcilibname} = %{version}-%{release}
 Requires:	%{ofxlibname} = %{version}-%{release}
 Requires:	%{cpplibname} = %{version}-%{release}
-Requires:	%{ebicslibname} = %version
+Requires:	%{ebicslibname} = %{version}-%{release}
+Requires:	%{paypallibname} = %{version}-%{release}
 Provides:	lib%{name}-devel = %{version}-%{release}
 Provides:	%{name}-devel = %{version}-%{release}
 Requires:	opensp-devel
@@ -200,6 +219,14 @@ mv %{buildroot}%{_datadir}/doc/aqhbci/* installed-docs
 %{_libdir}/%{name}/plugins/%major/providers/aqebics.*
 %doc %{_docdir}/aqebics
 
+%files -n aqpaypal
+%_bindir/aqpaypal-tool
+%{_libdir}/%{name}/plugins/%major/providers/aqpaypal.*
+%doc %{_docdir}/aqpaypal
+
+%files -n %{paypallibname}
+%_libdir/libaqpaypal.so.%{paypalmajor}*
+
 %files -n %{ebicslibname}
 %_libdir/libaqebics.so.%{ebicsmajor}*
 
@@ -211,13 +238,15 @@ mv %{buildroot}%{_datadir}/doc/aqhbci/* installed-docs
 %{_bindir}/aqbanking-config
 %{_includedir}/aqbanking5
 %{_includedir}/aqebics
-%{_libdir}/cmake/aqbanking-5.6
+%{_includedir}/aqpaypal
+%{_libdir}/cmake/aqbanking-5.7
 %{_libdir}/libaqbankingpp.so
 %{_libdir}/libaqbanking.so
 %{_libdir}/libaqnone.so
 %{_libdir}/libaqhbci.so
 %{_libdir}/libaqofxconnect.so
 %{_libdir}/libaqebics.so
+%{_libdir}/libaqpaypal.so
 %{_datadir}/aclocal/aqbanking.m4
 %{_libdir}/pkgconfig/aqbanking.pc
 
