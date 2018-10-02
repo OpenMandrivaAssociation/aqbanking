@@ -209,7 +209,7 @@ mv %{buildroot}%{_datadir}/doc/aqhbci/* installed-docs
 %{_datadir}/%{name}
 
 %files ofx
-%dir %{_libdir}/%{name}/plugins/%{major}/imexporters/ofx*
+%{_libdir}/%{name}/plugins/%{major}/imexporters/ofx*
 %{_libdir}/%{name}/plugins/%{major}/providers/aqofxconnect*
 
 %files -n %{ofxlibname}
