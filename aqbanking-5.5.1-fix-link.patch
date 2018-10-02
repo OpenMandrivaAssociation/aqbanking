@@ -1,5 +1,5 @@
---- src/plugins/backends/aqhbci/plugin/Makefile.am.link	2010-08-04 20:52:33.000000000 +0200
-+++ src/plugins/backends/aqhbci/plugin/Makefile.am	2010-08-04 20:55:50.000000000 +0200
+--- a/src/plugins/backends/aqhbci/plugin/Makefile.am.link	2010-08-04 20:52:33.000000000 +0200
++++ a/src/plugins/backends/aqhbci/plugin/Makefile.am	2010-08-04 20:55:50.000000000 +0200
 @@ -71,6 +71,7 @@
  
  testlib_SOURCES=testlib.c

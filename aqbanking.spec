@@ -23,6 +23,7 @@ Group:		System/Libraries
 Url:		http://www.aquamaniac.de/sites/aqbanking/index.php
 Source:		http://files.hboeck.de/aq/%{name}-%{version}.tar.gz
 Patch0:		aqbanking-5.5.1-fix-link.patch
+Patch1:		aqbanking-5.7.8-cpp11.patch
 BuildRequires:	pkgconfig(gwenhywfar)
 BuildRequires:	libchipcard-devel
 BuildRequires:	pkgconfig(libofx)
@@ -152,7 +153,7 @@ compiling programs using Aqbanking.
 
 %prep
 %setup -q
-%patch0 -p0 -b .link
+%apply_patches
 
 autoreconf -fiv
 
