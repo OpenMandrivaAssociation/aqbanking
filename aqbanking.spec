@@ -1,4 +1,4 @@
-%define major 43
+%define major 44
 %define libname %mklibname %{name} %{major}
 %define devname %mklibname -d %{name}
 
@@ -16,14 +16,14 @@
 
 Summary:	A library for online banking functions and financial data import/export
 Name:		aqbanking
-Version:	5.99.33beta
+Version:	6.0.1
 Release:	1
 License:	GPLv2+
 Group:		System/Libraries
 Url:		http://www.aquamaniac.de/sites/aqbanking/index.php
-Source0:	https://www.aquamaniac.de/rdm/attachments/download/145/aqbanking-%{version}.tar.gz
-BuildRequires:	pkgconfig(gwenhywfar)
-BuildRequires:	libchipcard-devel
+Source0:	https://www.aquamaniac.de/rdm/attachments/download/238/aqbanking-%{version}.tar.gz
+BuildRequires:	pkgconfig(gwenhywfar) >= 5.1.0
+BuildRequires:	libchipcard-devel >= 5.1.0
 BuildRequires:	libtool-devel
 BuildRequires:	pkgconfig(libofx)
 BuildRequires:	pkgconfig(ktoblzcheck)
@@ -198,6 +198,7 @@ rm -f %{buildroot}%{_libdir}/*/*/*/*/*.a
 %{_libdir}/%{name}/plugins/%major/providers/aqebics.*
 
 %files -n aqpaypal
+%{_libdir}/aqbanking/plugins/%{major}/providers/aqpaypal.xml
 %_bindir/aqpaypal-tool
 
 %files -n %{libname}
@@ -206,7 +207,7 @@ rm -f %{buildroot}%{_libdir}/*/*/*/*/*.a
 %files -n %{devname}
 %{_bindir}/aqbanking-config
 %{_includedir}/aqbanking6
-%{_libdir}/cmake/aqbanking-5.99
+%{_libdir}/cmake/aqbanking-6.0
 %{_libdir}/libaqbanking.so
 %{_datadir}/aclocal/aqbanking.m4
 %{_libdir}/pkgconfig/aqbanking.pc
