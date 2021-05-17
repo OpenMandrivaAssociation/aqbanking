@@ -16,13 +16,13 @@
 
 Summary:	A library for online banking functions and financial data import/export
 Name:		aqbanking
-Version:	6.2.5
+Version:	6.3.0
 Release:	1
 License:	GPLv2+
 Group:		System/Libraries
 Url:		http://www.aquamaniac.de/sites/aqbanking/index.php
-Source0:	https://www.aquamaniac.de/rdm/attachments/download/342/aqbanking-%{version}.tar.gz
-BuildRequires:	pkgconfig(gwenhywfar) >= 5.1.0
+Source0:	https://www.aquamaniac.de/rdm/attachments/download/372/aqbanking-%{version}.tar.gz
+BuildRequires:	pkgconfig(gwenhywfar) >= 5.5.1.1
 BuildRequires:	libchipcard-devel >= 5.1.0
 BuildRequires:	libtool-devel
 BuildRequires:	pkgconfig(libofx)
@@ -207,7 +207,7 @@ rm -f %{buildroot}%{_libdir}/*/*/*/*/*.a
 %files -n %{devname}
 %{_bindir}/aqbanking-config
 %{_includedir}/aqbanking6
-%{_libdir}/cmake/aqbanking-6.2
+%{_libdir}/cmake/aqbanking-%(echo %{version}|cut -d. -f1-2)
 %{_libdir}/libaqbanking.so
 %{_datadir}/aclocal/aqbanking.m4
 %{_libdir}/pkgconfig/aqbanking.pc
