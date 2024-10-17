@@ -20,7 +20,7 @@ Version:	6.3.0
 Release:	2
 License:	GPLv2+
 Group:		System/Libraries
-Url:		http://www.aquamaniac.de/sites/aqbanking/index.php
+Url:		https://www.aquamaniac.de/sites/aqbanking/index.php
 Source0:	https://www.aquamaniac.de/rdm/attachments/download/372/aqbanking-%{version}.tar.gz
 BuildRequires:	pkgconfig(gwenhywfar) >= 5.5.1.1
 BuildRequires:	libchipcard-devel >= 5.1.0
