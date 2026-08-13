@@ -22,11 +22,8 @@ License:	GPLv2+
 Group:		System/Libraries
 Url:		https://www.aquamaniac.de/sites/aqbanking/index.php
 Source0:	https://www.aquamaniac.de/rdm/attachments/download/372/aqbanking-%{version}.tar.gz
-BuildRequires:	autoconf
-BuildRequires:	automake
-BuildRequires:	libtool-base
-BuildRequires:	slibtool
 BuildRequires:	make
+BuildRequires:	slibtool
 BuildRequires:	pkgconfig(gwenhywfar) >= 5.5.1.1
 BuildRequires:	libchipcard-devel >= 5.1.0
 BuildRequires:	libtool-devel
@@ -151,9 +148,6 @@ compiling programs using Aqbanking.
 
 %prep
 %setup -q
-%autopatch -p1
-
-autoreconf -fiv
 
 %build
 %configure
