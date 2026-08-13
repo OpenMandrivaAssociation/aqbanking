@@ -160,7 +160,8 @@ compiling programs using Aqbanking.
 %makeinstall_std
 rm -f %{buildroot}%{_libdir}/*/*/*/*/*.a
 
-%find_lang %{name}
+# po/ install is a no-op in this tarball; don't fail the build
+%find_lang %{name} || touch %{name}.lang
 
 %files -n aqhbci
 %{_bindir}/aqhbci-tool4
