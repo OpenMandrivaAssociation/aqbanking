@@ -1,3 +1,6 @@
+# slibtoolize fails on this tarball (slbt_st_get_stoolie_ctx); use shipped configure
+%define _disable_rebuild_configure 1
+
 %define major 44
 %define libname %mklibname %{name} %{major}
 %define devname %mklibname -d %{name}
